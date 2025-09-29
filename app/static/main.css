@@ -1,0 +1,157 @@
+body {
+  background: #fffdf2;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #453015;
+}
+
+.bg-steel {
+  background-color: #292828;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #BFA181;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #fffdf2;
+  padding: 10px 15px;       /* smaller padding top/bottom */
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+  margin: 10px auto;
+  max-width: 600px;    /* limit vertical height */
+  overflow: hidden;          /* hide extra content */
+  text-overflow: ellipsis;   /* add "..." if text overflows */
+}
+
+.article-title {
+  color: #292828;
+}
+
+a.article-title:hover {
+  color: #dcc766;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: nowrap;       /* keep content in single line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+/* Menu card styling */
+.menu-item {
+  font-weight: 500;
+  font-size: 1.05rem;
+  padding: 18px 20px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #453015;
+  color: #f2e9df;
+  cursor: pointer;
+}
+
+.card-header {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.card {
+  border: none;
+  background-color: #292828;
+}
+
+.list-group-item + .list-group-item {
+  border-top: 1px solid #e3e3e3;
+}
+/* Use CSS variables for easy background changes */
+.menu-card {
+  --menu-bg: #ffffff;       /* Default menu background */
+  --menu-header-bg: #ffff; /* Default header background */
+  background-color: var(--menu-bg);
+}
+
+.menu-card .card-header {
+  background-color: var(--menu-header-bg);
+  color: #fff;
+}
+
+note-card {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 16px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-family: sans-serif;
+  }
+  .note-card h2 a {
+    text-decoration: none;
+    color: #333;
+  }
+  .note-card p {
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .note-card small {
+    display: block;
+    margin-top: 10px;
+    color: #666;
+  }
+  .note-images {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .note-images img {
+    width: 48%;
+    border-radius: 8px;
+  }

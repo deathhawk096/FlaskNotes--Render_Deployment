@@ -1,0 +1,48 @@
+{% extends 'layout.html'%}
+{% block content %}
+    <div class="note-card">
+      <h2>
+        <a class="article-title" href="{{ url_for('notes.view_note', note_id=note.id) }}">
+          {{ note.title }}
+        </a>
+        {% if note.author == current_user %}
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('notes.update_note',note_id=note.id)}}">Update</a>
+        <button type="'button" class="btn btn-danger btn-sm m-1"  data-toggle="modal" data-target="#deleteModalCenter">Delete</button>
+        {% endif %}
+      </h2>
+    <small class="text-muted">Date: {{ note.date_posted.strftime('%d-%m-%Y') }}</small>
+      <p>
+        {{ note.content }}
+      </p>
+      {# Optional: show images if your Note model stores them #}
+      {% if note.images %}
+        <div class="note-images">
+          {% for image in note.images %}
+            <img src="{{image.image_url}} " alt="note image">
+            {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <!-- Modal -->
+  <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLongTitle">Are you sure you wanna delete the note?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          The note will be permanently deleted and can't be recovered!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form action="{{url_for('notes.delete_note',note_id=note.id)}}" method="POST" >
+            <input class="btn btn-danger" type="submit" value="Delte">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

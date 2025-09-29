@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="note-card">
+  <h2>My Vacation</h2>
+  <p>
+    Had a great time at the beach today. The weather was perfect and the water was clear.
+  </p>
+  <div class="note-images">
+    <img src="{{ url_for('static', filename='1390091.png') }}" alt="Beach photo">
+    <img src="{{ url_for('static', filename='0761b4f234dbf94d6f4d8c59be4ce14e.jpg') }}" alt="Palm tree photo">
+  </div>
+</div>
+
+
+{% endblock content %}
