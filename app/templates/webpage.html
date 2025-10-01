@@ -1,15 +1,225 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="note-card">
-  <h2>My Vacation</h2>
-  <p>
-    Had a great time at the beach today. The weather was perfect and the water was clear.
-  </p>
-  <div class="note-images">
-    <img src="{{ url_for('static', filename='1390091.png') }}" alt="Beach photo">
-    <img src="{{ url_for('static', filename='0761b4f234dbf94d6f4d8c59be4ce14e.jpg') }}" alt="Palm tree photo">
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask Note - Simple Note Taking</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #fffdf2;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+    }
 
+    h1, h2, h3, h4, h5, h6 {
+      color: #453015;
+    }
 
-{% endblock content %}
+    .bg-steel {
+      background-color: #292828;
+    }
+
+    .site-header .navbar-nav .nav-link {
+      color: #BFA181;
+    }
+
+    .site-header .navbar-nav .nav-link:hover {
+      color: #ffffff;
+    }
+
+    .hero-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      color: #666;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      background-color: #453015;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      margin: 0 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #5a3d1a;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid #453015;
+      color: #453015;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      margin: 0 10px;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      background-color: #453015;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .features-section {
+      padding: 60px 20px;
+      background: #fff;
+    }
+
+    .feature-box {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .feature-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .feature-box p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    footer {
+      background-color: #292828;
+      color: #BFA181;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    footer a {
+      color: #BFA181;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+
+    footer a:hover {
+      color: #ffffff;
+    }
+
+    .flash-messages {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="/">Flask Note</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-item nav-link" href="#about">About</a>
+            <a class="nav-item nav-link" href="#contact">Contact</a>
+            <a class="nav-item nav-link" href="{{url_for('users.login')}}">Login</a>
+            <a class="nav-item nav-link" href="{{url_for('users.register')}}">Register</a>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+        </div>
+      </div>
+      <div class="hero-content">
+        <h1>Your thoughts, organized.</h1>
+        <p>A simple, elegant note-taking app to capture your ideas, thoughts, and reminders in one place.</p>
+        <div class="mt-4">
+          <a href="{{url_for('users.register')}}" class="btn btn-primary">Get Started</a>
+          <a href="{{url_for('users.login')}}" class="btn btn-outline">Login</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h3>Simple & Clean</h3>
+            <p>A distraction-free interface designed to help you focus on what matters most - your notes.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h3>Quick Access</h3>
+            <p>Create, edit, and organize your notes effortlessly. Everything you need is just a click away.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h3>Always Available</h3>
+            <p>Access your notes from anywhere, anytime. Your thoughts are always within reach.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <p>&copy; 2025 Flask Note. All rights reserved.</p>
+      <div class="mt-2">
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

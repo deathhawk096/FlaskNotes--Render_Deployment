@@ -77,7 +77,6 @@ def delete_note(note_id):
     image = Images.query.filter_by(notes_id=note.id)
     if note.author != current_user:
         abort(403)
-
     for img in image:
         db.session.delete(img)
         erase_img(img.public_id)

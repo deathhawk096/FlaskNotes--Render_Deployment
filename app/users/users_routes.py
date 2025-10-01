@@ -11,8 +11,9 @@ users = Blueprint('users',__name__)
 @users.route('/register',methods=['POST','GET'])
 def register():
     if current_user.is_authenticated:
-        abort(403)
-    form=Registration_form()
+        flash("You're currently signed in. Please sign out before creating a new account.",'info')
+        return redirect(url_for('main.home'))
+    form = Registration_form()
     if form.validate_on_submit():
         hashed_password=bcrypt.generate_password_hash(form.confirm_password.data).decode('utf-8')
         user=User(username=form.username.data,email=form.email.data,password=hashed_password)
@@ -27,7 +28,8 @@ def register():
 @users.route('/login',methods=['POST','GET'])
 def login():
     if current_user.is_authenticated:
-        abort(403)
+        flash("You're already signed in. Please log out to continue.",'info')
+        return redirect(url_for('main.home'))
     form=Login_form()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
